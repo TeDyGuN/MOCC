@@ -1,3 +1,7 @@
+#datos
+{
+    margin: 0;
+}
 .side
 {
     display: inline-block;
@@ -66,4 +70,12 @@
 .margen-der
 {
     margin-right: 10px;
+}
+#datos
+{
+    margin: 0;
+}
+.no-padding
+{
+    padding: 0;
 }

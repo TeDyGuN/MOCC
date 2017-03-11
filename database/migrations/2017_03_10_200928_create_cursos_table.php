@@ -1,0 +1,40 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateCursosTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('cursos', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('titulo');
+            $table->string('descripcion');
+            $table->string('url_video');
+            $table->string('url_img');
+            $table->integer('costo');
+            $table->integer('user_tutor')->unsigned();
+            $table->foreign('user_tutor')->references('id')->on('tutors')->onDelete('Cascade');
+            $table->integer('inst_id')->unsigned();
+            $table->foreign('inst_id')->references('id')->on('institutos')->onDelete('Cascade');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('cursos');
+    }
+}

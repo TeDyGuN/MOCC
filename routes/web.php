@@ -14,6 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/', 'CursoController@getCurso');
 Route::get('curso/{id}', 'CursoController@getViewCurso');
 
 

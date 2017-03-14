@@ -22,10 +22,14 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
+        <nav class="navbar navbar-default navbar-static-top" style="height: 60px;">
             <div class="container">
                 <div class="navbar-header">
-
+                    <!-- Branding Image -->
+                    <a class="navbar-brand" style="padding: 0"  href="{{ url('/') }}">
+                        <img alt="Brand" style="width: 60px;height: 60px" src="{{ asset('images/logo.png') }}">
+                    </a>
+                    <a href="" style="margin-left: 10px;" class="navbar-brand">AXEZO</a>
                     <!-- Collapsed Hamburger -->
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
                         <span class="sr-only">Toggle Navigation</span>
@@ -33,11 +37,6 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-
-                    <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
-                    </a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -47,33 +46,20 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
-                        <!-- Authentication Links -->
-                        @if (Auth::guest())
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
-                        @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
-
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
-                        @endif
+                    <ul class="nav navbar-nav navbar-right" >
+                        <li>
+                            <img width="60px" height="60px" src="{{ asset('/images/user2-160x160.png') }}" alt="">
+                        </li>
+                        <li class="dropdown">
+                            <a href="perfil" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->nombre.' '.Auth::user()->apellidos }} <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Mis Cursos</a></li>
+                                <li><a href="#">Ver Perfil</a></li>
+                                <li><a href="#">Salir</a></li>
+                            </ul>
+                        </li>
                     </ul>
+
                 </div>
             </div>
         </nav>

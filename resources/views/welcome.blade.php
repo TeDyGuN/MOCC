@@ -99,75 +99,38 @@
                 <li><p class="text-justify"> <strong>Registro: </strong>Los datos que el usuario llene en el registro se usaran para emitir el certificado</p></li>
             </ul>
         </div>
-        <div class="col-md-2 margen">
-            <div class="thumbnail" style="padding: 0;">
-                <img id="img-miniatura" src="{{ asset('/images/ex2.jpg') }}" alt="...">
-                <div class="caption">
-                    <h5><strong>Psicologia de la Atraccion Interpersonal: Caso Norte Potosi</strong></h5>
-                    <p>Universidad XXX</p>
-
+        <div class="col-md-6 margen">
+            @foreach($cursos as $c)
+                <div class="col-md-4 thumbnail" style="padding:0;padding-left: 15px;padding-right: 15px;border: 0;">
+                    <img id="img-miniatura" src="{{ asset('/images/'.$c->url_img ) }}" alt="...">
+                    <div class="caption">
+                        <h5><strong>{{  $c->titulo }}</strong></h5>
+                        <p>{{ $c->nombre }}</p>
+                    </div>
+                    <div class="bordertop">
+                        @if(Auth::guest())
+                            <p style="margin-bottom: 0; padding-bottom: 0"><span class="label label-warning">Gratis</span> <a href="" data-toggle="modal" data-target="#myModal" class="btn btn-primary text-right" style="background-color: #00a2e8;float: right" role="button">Iniciar el Curso</a></p>
+                        @else
+                            <p style="margin-bottom: 0; padding-bottom: 0"><span class="label label-warning">Gratis</span> <a href="{{ url('curso/'.$c->id) }}" class="btn btn-primary text-right" style="background-color: #00a2e8;float: right" role="button">Iniciar el Curso</a></p>
+                        @endif
+                    </div>
                 </div>
-                <div class="bordertop">
-                    <p style="margin-bottom: 0; padding-bottom: 0"><span class="label label-warning">Gratis</span> <a href="#" class="btn btn-primary text-right" style="background-color: #00a2e8;float: right" role="button">Iniciar el Curso</a></p>
-                </div>
-            </div>
-            <div class="thumbnail" style="padding: 0;">
-                <img id="img-miniatura" src="{{ asset('/images/ex1.jpg') }}" alt="...">
-                <div class="caption">
-                    <h5><strong>Psicologia de la Atraccion Interpersonal: Caso Norte Potosi</strong></h5>
-                    <p>Universidad XXX</p>
-
-                </div>
-                <div class="bordertop">
-                    <p style="margin-bottom: 0; padding-bottom: 0"><span class="label label-warning">Gratis</span> <a href="#" class="btn btn-primary text-right" style="background-color: #00a2e8;float: right" role="button">Iniciar el Curso</a></p>
-                </div>
-            </div>
+            @endforeach
         </div>
-        <div class="col-md-2 margen">
-            <div class="thumbnail" style="padding: 0;">
-                <img id="img-miniatura" src="{{ asset('/images/ex3.jpg') }}" alt="...">
-                <div class="caption">
-                    <h5><strong>Psicologia de la Atraccion Interpersonal: Caso Norte Potosi</strong></h5>
-                    <p>Universidad XXX</p>
-
-                </div>
-                <div class="bordertop">
-                    <p style="margin-bottom: 0; padding-bottom: 0"><span class="label label-warning">Gratis</span> <a href="#" class="btn btn-primary text-right" style="background-color: #00a2e8;float: right" role="button">Iniciar el Curso</a></p>
-                </div>
-            </div>
-            <div class="thumbnail" style="padding: 0;">
-                <img id="img-miniatura" src="{{ asset('/images/ex4.jpg') }}" alt="...">
-                <div class="caption">
-                    <h5><strong>Psicologia de la Atraccion Interpersonal: Caso Norte Potosi</strong></h5>
-                    <p>Universidad XXX</p>
-
-                </div>
-                <div class="bordertop">
-                    <p style="margin-bottom: 0; padding-bottom: 0"><span class="label label-warning">Gratis</span> <a href="#" class="btn btn-primary text-right" style="background-color: #00a2e8;float: right" role="button">Iniciar el Curso</a></p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-2 margen">
-            <div class="thumbnail" style="padding: 0;">
-                <img id="img-miniatura" src="{{ asset('/images/ex5.jpg') }}" alt="...">
-                <div class="caption">
-                    <h5><strong>Psicologia de la Atraccion Interpersonal: Caso Norte Potosi</strong></h5>
-                    <p>Universidad XXX</p>
-
-                </div>
-                <div class="bordertop">
-                    <p style="margin-bottom: 0; padding-bottom: 0"><span class="label label-warning">Gratis</span> <a href="#" class="btn btn-primary text-right" style="background-color: #00a2e8;float: right" role="button">Iniciar el Curso</a></p>
-                </div>
-            </div>
-            <div class="thumbnail" style="padding: 0;">
-                <img id="img-miniatura" src="{{ asset('/images/ex6.jpg') }}" alt="...">
-                <div class="caption">
-                    <h5><strong>Psicologia de la Atraccion Interpersonal: Caso Norte Potosi</strong></h5>
-                    <p>Universidad XXX</p>
-
-                </div>
-                <div class="bordertop">
-                    <p style="margin-bottom: 0; padding-bottom: 0"><span class="label label-warning">Gratis</span> <a href="#" class="btn btn-primary text-right" style="background-color: #00a2e8;float: right" role="button">Iniciar el Curso</a></p>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Aviso</h4>
+                    </div>
+                    <div class="modal-body">
+                        Señor Usuario Registrese o Ingrese con su cuenta para acceder al Curso
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -238,16 +201,6 @@
                                     @endif
                                 </div>
                             </div>
-                            {{--
-                                                    <div class="form-group">
-                                                        <div class="col-md-6 col-md-offset-4">
-                                                            <div class="checkbox">
-                                                                <label>
-                                                                    <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>--}}
                             <div class="form-group">
                                 <div class="col-md-8 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">

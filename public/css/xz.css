@@ -79,3 +79,9 @@
 {
     padding: 0;
 }
+#miniatura
+{
+    padding-left: 15px;
+    padding-right: 15px;
+    border: 0;
+}

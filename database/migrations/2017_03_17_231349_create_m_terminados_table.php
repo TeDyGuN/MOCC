@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTutorsTable extends Migration
+class CreateMTerminadosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateTutorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tutors', function (Blueprint $table) {
+        Schema::create('m_terminados', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('descripcion');
-            $table->string('web');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('Cascade');
+            $table->integer('modulo_id')->unsigned();
+            $table->foreign('modulo_id')->references('id')->on('modulos')->onDelete('Cascade');
             $table->timestamps();
         });
     }
@@ -31,7 +31,7 @@ class CreateTutorsTable extends Migration
     public function down()
     {
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
-        Schema::dropIfExists('tutors');
+        Schema::dropIfExists('m_terminados');
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }

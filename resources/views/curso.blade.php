@@ -4,8 +4,7 @@
     <div class="container">
         <div class="row">
             <ol class="breadcrumb">
-                <li><a href="#">Inicio</a></li>
-                <li><a href="#">Cursos</a></li>
+                <li><a href="{{ url('/') }}">Inicio</a></li>
                 <li class="active">{{ $curso[0]->titulo }}</li>
             </ol>
             <div class="col-md-4">
@@ -62,13 +61,19 @@
             @foreach($modulos as $c)
                 <div class="col-md-2">
                     <div class="thumbnail">
-                        <h6 style="height: 40px;">{{ $c->nombre }}</h6>
+                        <h6 style="height: 40px;"><a href="{{ url('curso/'. $curso[0]->id.'/'.$c->id.'/1'  ) }}">{{ $c->nombre }}</a></h6>
                         <img id="img-miniatura" style="height: 150px; width: 100%" src="{{ asset('/images/'.$c->img_url ) }}" alt="...">
                         <span class="label label-success">Progreso</span>
                         <div class="progress">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 80%;">
-                                80%
-                            </div>
+                            @if($help[$c->n_modulo] == 0)
+                                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;text-align: center;color: black">
+                                    0%
+                                </div>
+                            @else
+                                <div class="progress-bar" role="progressbar" aria-valuenow="{{ $help[$c->n_modulo] }}" aria-valuemin="0" aria-valuemax="100" style="{{'width:'.$help[$c->n_modulo].'%' }};">
+                                    {{ $help[$c->n_modulo].'%' }}
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>

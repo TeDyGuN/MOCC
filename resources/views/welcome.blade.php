@@ -51,7 +51,7 @@
 
 
         </div>
-        <div id="navbar2" class="navbar-collapse collapse">
+        {{--<div id="navbar2" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <a href="#"  style="padding: 15px 0 0 0; margin-right: 25px">
@@ -64,7 +64,7 @@
                     </a>
                 </li>
             </ul>
-        </div>
+        </div>--}}
         {{--<div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-right">
                 <li>
@@ -108,10 +108,11 @@
                         <p>{{ $c->nombre }}</p>
                     </div>
                     <div class="bordertop">
+                        <p>Gratis</p>
                         @if(Auth::guest())
-                            <p style="margin-bottom: 0; padding-bottom: 0"><span class="label label-warning">Gratis</span> <a href="" data-toggle="modal" data-target="#myModal" class="btn btn-primary text-right" style="background-color: #00a2e8;float: right" role="button">Iniciar el Curso</a></p>
+                            <p style="margin-bottom: 0; padding-bottom: 0"><a href="" data-toggle="modal" data-target="#myModal" class="btn btn-primary text-right" style="background-color: #e2e20b;float: right; border-color: #e2e20b;color: black; position: absolute;right: 20px;" role="button">Ir al Curso</a></p>
                         @else
-                            <p style="margin-bottom: 0; padding-bottom: 0"><span class="label label-warning">Gratis</span> <a href="{{ url('curso/'.$c->id) }}" class="btn btn-primary text-right" style="background-color: #00a2e8;float: right" role="button">Iniciar el Curso</a></p>
+                            <p style="margin-bottom: 0; padding-bottom: 0"><a href="{{ url('curso/'.$c->id) }}" class="btn btn-primary text-right" style="background-color: #e2e20b;float: right; border-color: #e2e20b;color: black;position: absolute;right: 20px;" role="button">Ir al Curso</a></p>
                         @endif
                     </div>
                 </div>

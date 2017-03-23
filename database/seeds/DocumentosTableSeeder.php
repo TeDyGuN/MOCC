@@ -13,7 +13,7 @@ class DocumentosTableSeeder extends Seeder
     {
         \DB::table('documentos')->insert(array(
             'nombre'        => 'Apendice 1',
-            'url'           => 'ley164',
+            'url'           => 'ley164.pdf',
             'modulo_id'     => '1'
         ));
     }

@@ -20,7 +20,7 @@ Route::get('curso/{idc}/{idm}/{idt}', 'CursoController@getViewModulo');
 Route::post('curso/terminarC', 'CursoController@Pcursoterminado');
 Route::get('storage/{archivo}', function ($archivo) {
 
-    $url = storage_path().$archivo;
+    $url = storage_path('app/').$archivo;
     //verificamos si el archivo existe y lo retornamos
     if (\Illuminate\Support\Facades\Storage::exists($archivo))
     {

@@ -87,6 +87,7 @@
 <div class="container-fluid">
     <!-- Example row of columns -->
     <div class="row">
+
         <div class="col-md-3 margen" >
             <div class="embed-responsive embed-responsive-4by3">
                 <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/rwm2ZSQdzyE"></iframe>
@@ -112,7 +113,19 @@
                         @if(Auth::guest())
                             <p style="margin-bottom: 0; padding-bottom: 0"><a href="" data-toggle="modal" data-target="#myModal" class="btn btn-primary text-right" style="background-color: #e2e20b;float: right; border-color: #e2e20b;color: black; position: absolute;right: 20px;" role="button">Ir al Curso</a></p>
                         @else
-                            <p style="margin-bottom: 0; padding-bottom: 0"><a href="{{ url('curso/'.$c->id) }}" class="btn btn-primary text-right" style="background-color: #e2e20b;float: right; border-color: #e2e20b;color: black;position: absolute;right: 20px;" role="button">Ir al Curso</a></p>
+                            @if(count($c_tests) > 0)
+                              @foreach ($c_tests as $d)
+                                  @if($c->id == $d->curso_id)
+                                      <p style="margin-bottom: 0; padding-bottom: 0"><a href="{{ url('curso/'.$c->id) }}" class="btn btn-primary text-right" style="background-color: #e2e20b;float: right; border-color: #e2e20b;color: black;position: absolute;right: 20px;" role="button">Curso Completado</a></p>
+                                  @else
+                                      <p style="margin-bottom: 0; padding-bottom: 0"><a href="{{ url('curso/'.$c->id) }}" class="btn btn-primary text-right" style="background-color: #e2e20b;float: right; border-color: #e2e20b;color: black;position: absolute;right: 20px;" role="button">Ir al Curso</a></p>
+                                  @endif
+                              @endforeach
+                            @else
+                                <p style="margin-bottom: 0; padding-bottom: 0"><a href="{{ url('curso/'.$c->id) }}" class="btn btn-primary text-right" style="background-color: #e2e20b;float: right; border-color: #e2e20b;color: black;position: absolute;right: 20px;" role="button">Ir al Curso</a></p>
+
+                            @endif
+
                         @endif
                     </div>
                 </div>

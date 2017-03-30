@@ -7,6 +7,8 @@ use App\Documento;
 use App\Modulo;
 use App\Tema;
 use App\Terminado;
+use App\TTerminado;
+use App\CTerminado;
 use App\Tutor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,7 +35,25 @@ class CursoController extends Controller
             ->where('curso_id', '=', $id)
             ->get();
 
+        $t_terminado = TTerminado::select('nota')
+            ->where('id_curso', $id)
+            ->orderBy('nota', 'DESC')
+            ->take(1)
+            ->get();
+        $bloq = false;
 
+
+        if(count($t_terminado) == 0)
+        {
+            $nota = 0;
+        }
+        else {
+            $nota = $t_terminado[0]->nota;
+        }
+        if($nota > 0)
+        {
+            $bloq = true;
+        }
         $help = array();
         $i = 1;
         foreach($modulos as $m)
@@ -46,14 +66,17 @@ class CursoController extends Controller
             $help[$i] = round(($help[$i] / $m->n_cursos)*100);
             $i++;
         }
-        return view('curso', compact('curso', 'tutor', 'modulos', 'help'));
+        return view('curso', compact('curso', 'tutor', 'modulos', 'help', 'nota' , 'bloq'));
     }
     public function getCurso()
     {
         $cursos = Curso::join('institutos as i', 'inst_id', '=' ,'i.id')
             ->select('cursos.id','titulo', 'url_img', 'costo', 'i.nombre as nombre')
             ->get();
-        return view('welcome', compact('cursos'));
+        $c_tests = CTerminado::where('user_id', Auth::id())
+            ->get();
+
+        return view('welcome', compact('cursos', 'c_tests'));
     }
     public function getViewModulo($id_c, $id_m, $id_t)
     {

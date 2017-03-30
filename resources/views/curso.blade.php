@@ -7,6 +7,12 @@
                 <li><a href="{{ url('/') }}">Inicio</a></li>
                 <li class="active">{{ $curso[0]->titulo }}</li>
             </ol>
+            <h3 style="visibility: hidden;">{{ $success = Session::get('success')}}</h3>
+              @if ($success)
+                  <div style="margin-top: 20px;"class="alert alert-info">
+                      {{ session('success')}}
+                  </div>
+              @endif
             <div class="col-md-4">
                 <div class="embed-responsive embed-responsive-4by3">
                     <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ $curso[0]->url_video }}"></iframe>
@@ -80,13 +86,17 @@
             @endforeach
                 <div class="col-md-2">
                     <div class="thumbnail" >
-                        <h5 style="height: 40px;">Test</h5>
+                        @if ($bloq)
+                            <h5 style="height: 40px;">Test Completado</h5>
+                        @else
+                          <h5 style="height: 40px;"><a href="{{ url('curso/test/'.$curso[0]->id )}}">Test</a></h5>
+                        @endif
                         <img class="center-block" style="height: 150px; width: 100%;" id="img-miniatura" src="{{ asset('/images/test.png' ) }}" alt="...">
 
                         <span class="label label-success">Nota</span>
                         <div class="progress">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 80%;">
-                                80/100
+                            <div class="progress-bar" role="progressbar" aria-valuenow="{{ $nota }}" aria-valuemin="0" aria-valuemax="100" style="{{ 'width: '. $nota  .'%'}};">
+                                {{ $nota }}
                             </div>
                         </div>
                     </div>

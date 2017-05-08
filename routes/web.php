@@ -48,4 +48,9 @@ Route::post('admin/save_inst', 'AdminController@saveInstitucion');
 
 Route::get('admin/crear_curso', 'AdminController@getCrearCurso');
 Route::post('admin/saveCurso', 'AdminController@saveCurso');
+
+Route::get('reportes/docente', 'ReporteController@getReporteDocente');
+Route::get('reportes/instituto', 'ReporteController@getReporteInstitucion');
+Route::get('reportes/curso', 'ReporteController@getReporteCurso');
+
 //Route::post('perfil/update', 'PerfilController@updatePerfil');

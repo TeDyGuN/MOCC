@@ -30,7 +30,13 @@ class AdminController extends Controller
 {
     public function getAdmin()
     {
-        return view('admin');
+        $ct = CTerminado::join('users as u', 'c_terminados.user_id', 'u.id')
+            ->join('cursos as c', 'c_terminados.curso_id', 'c.id')
+            ->join('t_terminados as t', 'c_terminados.t_terminado_id', 't.id')
+            ->select('u.nombre', 'u.apellidos', 'c.titulo', 'u.celular', 'u.email', 't.nota')
+            ->get();
+        //dd($ct);
+        return view('admin', compact('ct'));
     }
     public function getDocente()
     {

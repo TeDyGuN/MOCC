@@ -14,19 +14,20 @@
                     </div>
                     <div class="panel-body" id="app">
                         <ul class="list-group" >
-                            @for ($i = 1; $i < $id_t; $i++)
-                                @if($p[$i] == 1)
-                                    <a href="{{ url('curso/'.$modulo[0]->c_id.'/'.$modulo[0]->id.'/'.$temas[$i-1]->id  ) }}" class="list-group-item list-group-item-success"><span class="badge">03:00</span>{{ $temas[$i-1]->nombre }}</a>
+                            {{--@for ($i = 1; $i < $id_t; $i++)--}}
+                            @for ($i = $tt; $i < $id_t; $i++)
+                                @if($p[$i-$tt+1] == 1)
+                                    <a href="{{ url('curso/'.$modulo[0]->c_id.'/'.$modulo[0]->id.'/'.$temas[$i-$tt]->id  ) }}" class="list-group-item list-group-item-success"><span class="badge">03:00</span>{{ $temas[$i-$tt]->nombre }}</a>
                                 @else
-                                    <a href="{{ url('curso/'.$modulo[0]->c_id.'/'.$modulo[0]->id.'/'.$temas[$i-1]->id  ) }}" class="list-group-item"><span class="badge">03:00</span>{{ $temas[$i-1]->nombre }}</a>
+                                    <a href="{{ url('curso/'.$modulo[0]->c_id.'/'.$modulo[0]->id.'/'.$temas[$i-$tt]->id  ) }}" class="list-group-item"><span class="badge">03:00</span>{{ $temas[$i-$tt]->nombre }}</a>
                                 @endif
                             @endfor
-                            <a href="{{ url('curso/'.$modulo[0]->c_id.'/'.$modulo[0]->id.'/'.$temas[$i-1]->id  ) }}" class="list-group-item active"><span class="badge">03:00</span>{{ $temas[$i-1]->nombre }}</a>
-                            @for ($i = $id_t + 1; $i <= $modulo[0]->n_cursos; $i++)
-                                @if($p[$i] == 1)
-                                    <a href="{{ url('curso/'.$modulo[0]->c_id.'/'.$modulo[0]->id.'/'.$temas[$i-1]->id  ) }}" class="list-group-item list-group-item-success"><span class="badge">03:00</span>{{ $temas[$i-1]->nombre }}</a>
+                            <a href="{{ url('curso/'.$modulo[0]->c_id.'/'.$modulo[0]->id.'/'.$temas[$i-$tt]->id  ) }}" class="list-group-item active"><span class="badge">03:00</span>{{ $temas[$i-$tt]->nombre }}</a>
+                            @for ($i = $id_t + 1; $i <= ($tt + $modulo[0]->n_cursos-1); $i++)
+                                @if($p[$i-$tt+1] == 1)
+                                    <a href="{{ url('curso/'.$modulo[0]->c_id.'/'.$modulo[0]->id.'/'.$temas[$i-$tt]->id  ) }}" class="list-group-item list-group-item-success"><span class="badge">03:00</span>{{ $temas[$i-$tt]->nombre }}</a>
                                 @else
-                                    <a href="{{ url('curso/'.$modulo[0]->c_id.'/'.$modulo[0]->id.'/'.$temas[$i-1]->id  ) }}" class="list-group-item"><span class="badge">03:00</span>{{ $temas[$i-1]->nombre }}</a>
+                                    <a href="{{ url('curso/'.$modulo[0]->c_id.'/'.$modulo[0]->id.'/'.$temas[$i-$tt]->id  ) }}" class="list-group-item"><span class="badge">03:00</span>{{ $temas[$i-$tt]->nombre }}</a>
                                 @endif
                             @endfor
                                 {{--@for ($i = 1; $i <= $modulo[0]->n_cursos; $i++)
@@ -61,7 +62,7 @@
             </div>
             <form role="form" method="POST" name="form_1" action="{{ url('curso/terminarC') }}">
                 {{ csrf_field() }}
-                <input id="id_tema" type="hidden" name="id_tema" value="{{ $temas[$id_t-1]->id }}" required>
+                <input id="id_tema" type="hidden" name="id_tema" value="{{ $temas[$id_t-$tt]->id }}" required>
                 <input id="id_tema" type="hidden" name="id_curso" value="{{ $modulo[0]->c_id }}" required>
                 <input id="id_tema" type="hidden" name="id_modulo" value="{{ $modulo[0]->id }}" required>
                 <input id="id_tema" type="hidden" name="n_cursos" value="{{ $modulo[0]->n_cursos }}" required>
@@ -69,10 +70,10 @@
             <div class="col-md-8">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        {{ $temas[$id_t-1]->nombre}}
+                        {{ $temas[$id_t-$tt]->nombre}}
                     </div>
                     <div class="panel-body">
-                        {{ $temas[$id_t-1]->descripcion}}
+                        {{ $temas[$id_t-$tt]->descripcion}}
                         {{--<div style="margin-top: 10px;" class="embed-responsive embed-responsive-4by3">
                             <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ $temas[0]->url_video }}"></iframe>
                         </div>--}}
@@ -84,7 +85,7 @@
                             var next = {{$id_t}} + 1;
                             function onYouTubePlayerAPIReady() {
                                 player = new YT.Player('player', {
-                                    videoId: '{{ $temas[$id_t-1]->url_video }}',
+                                    videoId: '{{ $temas[$id_t-$tt]->url_video }}',
                                     events: {
                                         'onReady': onPlayerReady,
                                         'onStateChange': onPlayerStateChange

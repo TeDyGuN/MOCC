@@ -17,6 +17,7 @@ class UsersTableSeeder extends Seeder
             'celular'   => '71200087',
             'email'     => 'ted_cc@hotmail.com',
             'password'  => \Hash::make('secret'),
+            'rol'       => 'Admin'
         ));
         \DB::table('users')->insert(array(
             'nombre'    => 'Gary',
@@ -24,6 +25,7 @@ class UsersTableSeeder extends Seeder
             'celular'   => '73000293',
             'email'     => 'gary_cc@hotmail.com',
             'password'  => \Hash::make('secret'),
+            'rol'       => 'Secretario'
         ));
         \DB::table('users')->insert(array(
             'nombre'    => 'Admin',
@@ -31,6 +33,7 @@ class UsersTableSeeder extends Seeder
             'celular'   => '73000293',
             'email'     => 'admin@admin.com',
             'password'  => \Hash::make('secret'),
+            'rol'       => 'Admin'
         ));
         \DB::table('users')->insert(array(
             'nombre'    => 'Cristofer',
@@ -38,6 +41,7 @@ class UsersTableSeeder extends Seeder
             'celular'   => '60276790',
             'email'     => 'crof24@gmail.com',
             'password'  => \Hash::make('secret'),
+            'rol'       => 'Docente'
         ));
 
 

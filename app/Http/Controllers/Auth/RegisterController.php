@@ -71,6 +71,7 @@ class RegisterController extends Controller
             'email'     => $data['email'],
             'password'  => bcrypt($data['password']),
             'pais'      => 'Bolivia',
+            'rol'       => 'Estudiante'
         ]);
     }
 }

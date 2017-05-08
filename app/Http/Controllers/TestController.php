@@ -20,13 +20,15 @@ class TestController extends Controller
 {
     public function getTestView($id)
     {
-        $test = Test::where('id', $id)
+        $test = Test::where('id_curso', $id)
             ->get();
-        $preguntas = Pregunta::where('id_test', $id)
+        $preguntas = Pregunta::where('id_test', $test[0]->id)
             ->get();
-        $respuestas = Respuesta::where('id_test', $id)
+
+        $respuestas = Respuesta::where('id_test', $test[0]->id)
             ->get();
         $test_array = $this->getTestArray($test, $preguntas, $respuestas);
+        //dd($test_array);
         //$test_json = json_encode($test_array);
         return view('test', compact('test_array'));
     }
@@ -67,12 +69,16 @@ class TestController extends Controller
         $ppp = array();
         $aciertos = 0;
         $id = $request->id_test;
+        $w = Pregunta::select('id')
+            ->where('id_test', $id)
+            ->first();
+        $tt = $w->id;
         $preguntas = Pregunta::select('id', 'correcto')
             ->where('id_test', $id)
             ->get();
         foreach ($preguntas as $p) {
             $id_pregunta = $p->id;
-            $aux = 'optionsRadios'.$id_pregunta;
+            $aux = 'optionsRadios'.($id_pregunta-$tt+1);
             $respuesta = $request->$aux;
             if ($p->correcto == $respuesta) {
                 $aciertos = $aciertos + 1;

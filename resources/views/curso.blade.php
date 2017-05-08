@@ -64,10 +64,12 @@
             </div>
         </div>
         <div class="row">
+            <p class="text-hide">{{ $i = 0 }}</p>
             @foreach($modulos as $c)
+
                 <div class="col-md-2">
                     <div class="thumbnail">
-                        <h6 style="height: 40px;"><a href="{{ url('curso/'. $curso[0]->id.'/'.$c->id.'/1'  ) }}">{{ $c->nombre }}</a></h6>
+                        <h6 style="height: 40px;"><a href="{{ url('curso/'. $curso[0]->id.'/'.$c->id.'/'.$tt[$i++]  ) }}">{{ $c->nombre }}</a></h6>
                         <img id="img-miniatura" style="height: 150px; width: 100%" src="{{ asset('/images/'.$c->img_url ) }}" alt="...">
                         <span class="label label-success">Progreso</span>
                         <div class="progress">

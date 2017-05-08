@@ -54,8 +54,27 @@
                             <a href="perfil" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->nombre.' '.Auth::user()->apellidos }} <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#">Mis Cursos</a></li>
-                                <li><a href="#">Ver Perfil</a></li>
-                                <li><a href="#">Salir</a></li>
+                                <li><a href="{{ url('/perfil')}}">Ver Perfil</a></li>
+                                {{-- <li><a href="{{}}">Salir</a></li> --}}
+                                @if(Auth::user()->rol == 'Admin' )
+                                    <li>
+                                        <a href="{{ url('admin') }}">
+                                            Panel de Admin
+                                        </a>
+                                    </li>
+                                @endif
+                                <li><a href="{{ url('/logout') }}"
+                                     onclick="event.preventDefault();
+                                     document.getElementById('logout-form').submit();">
+                                      Salir
+                                </a></li>
+
+                                <form id="logout-form"
+                                      action="{{ url('/logout') }}"
+                                  method="POST"
+                                  style="display: none;">
+                                              {{ csrf_field() }}
+                                </form>
                             </ul>
                         </li>
                     </ul>

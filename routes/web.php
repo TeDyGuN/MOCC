@@ -35,3 +35,17 @@ Route::get('storage/{archivo}', function ($archivo) {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+Route::get('perfil', 'PerfilController@getPerfil');
+Route::post('perfil/update', 'PerfilController@updatePerfil');
+
+Route::get('admin', 'AdminController@getAdmin');
+Route::get('admin/docente', 'AdminController@getDocente');
+Route::post('admin/save_docente', 'AdminController@saveDocente');
+
+Route::get('admin/institucion', 'AdminController@getInstitucion');
+Route::post('admin/save_inst', 'AdminController@saveInstitucion');
+
+Route::get('admin/crear_curso', 'AdminController@getCrearCurso');
+Route::post('admin/saveCurso', 'AdminController@saveCurso');
+//Route::post('perfil/update', 'PerfilController@updatePerfil');

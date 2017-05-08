@@ -35,8 +35,27 @@ class CursoController extends Controller
             ->where('curso_id', '=', $id)
             ->get();
 
+        $tt = array();
+        $ii = 0;
+
+        foreach ($modulos as $m)
+        {
+            $w = Tema::where('modulo_id', '=', $m->id)
+                ->select('temas.id')
+                ->first();
+            if(count($w) != 0)
+            {
+                $tt[$ii] = $w->id;
+            }
+            else
+            {
+                $tt[$ii] = 1;
+            }
+            $ii++;
+        }
         $t_terminado = TTerminado::select('nota')
             ->where('id_curso', $id)
+            ->where('user_id', Auth::id())
             ->orderBy('nota', 'DESC')
             ->take(1)
             ->get();
@@ -66,7 +85,7 @@ class CursoController extends Controller
             $help[$i] = round(($help[$i] / $m->n_cursos)*100);
             $i++;
         }
-        return view('curso', compact('curso', 'tutor', 'modulos', 'help', 'nota' , 'bloq'));
+        return view('curso', compact('curso', 'tutor', 'modulos', 'help', 'nota' , 'bloq', 'tt'));
     }
     public function getCurso()
     {
@@ -82,7 +101,13 @@ class CursoController extends Controller
     {
         $modulo = Modulo::join('cursos as c', 'curso_id', '=', 'c.id')
             ->select('modulos.id', 'c.id as c_id', 'nombre', 'n_modulo', 'n_cursos','c.titulo as c_titulo')
+            ->where('curso_id', $id_c)
+            ->where('modulos.id', $id_m)
             ->get();
+        $w = Tema::where('modulo_id', '=', $id_m)
+            ->select('temas.id')
+            ->first();
+        $tt = $w->id;
         $temas = Tema::where('modulo_id', '=', $id_m)
             ->get();
         /*$tema = Tema::where('id', '=', $id_t)
@@ -98,18 +123,19 @@ class CursoController extends Controller
 
         foreach($terminados as $t)
         {
-            foreach($temas as $te)
+            for($i = 0; $i < $modulo[0]->n_cursos; $i++)
+            //foreach($temas as $te)
             {
-                if($t->tema_id == $te->id)
+                if($t->tema_id == $temas[$i]->id)
                 {
-                    $p[$t->tema_id] = 1;
+                    $p[$i+1] = 1;
                 }
             }
-
         }
+        //dd($modulo);
         $docs = Documento::where('modulo_id', '=', $id_m)
             ->get();
-        return view('modulo', compact('modulo', 'temas', 'docs', 'id_t', 'p'));
+        return view('modulo', compact('modulo', 'temas', 'docs', 'id_t', 'p', 'tt'));
     }
     public function Pcursoterminado(Request $request)
     {
@@ -126,7 +152,11 @@ class CursoController extends Controller
             $terminado->curso_id = $request->id_curso;
             $terminado->save();
         }
-        if($request->id_tema == $request->n_cursos)
+        $w = Tema::where('modulo_id', '=', $request->id_modulo)
+            ->select('temas.id')
+            ->first();
+        $tt = $w->id;
+        if($request->id_tema == ($tt + $request->n_cursos-1))
         {
             return redirect('curso/'.$request->id_curso);
         }

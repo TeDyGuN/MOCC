@@ -163,9 +163,15 @@
                             <p id="datos">{{ Auth::user()->celular}}</p>
                             <p id="datos">{{ Auth::user()->email}}</p>
                             <div>
-                                <a href="{{ route('logout') }}">
+                                <a href="{{ url('perfil') }}">
                                     Ver Perfil
                                 </a>
+                                <p>  </p>
+                                @if(Auth::user()->rol == 'Admin' )
+                                    <a href="{{ url('admin') }}">
+                                        Panel de Admin
+                                    </a>
+                                @endif
                                 <a class="pull-right" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">
